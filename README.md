@@ -1,2 +1,4 @@
-# ranging-rs
-Range/bucket-based collections in Rust, compatible and alternative to `std::collections` 
+# ranging 
+Abstracted range-based collections in Rust.
+
+For `std` and `no_std` features, conventions for module names (and hence full qualified names) and test conventions see `slicing-rs`.

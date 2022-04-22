@@ -1,0 +1,41 @@
+[package]
+name = "ranging"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+# `std` and `no_std` are mutually exclusive. Use maximum one of them.
+# `std` doesn't enable anything, really. It only indicates. And it ensures an
+# error if any other dependency requests `no_std`.
+std = []
+no_std = []
+
+# Whether to allow `Vec` in `no_std`. Requires `no_std`.
+no_std_vec = []
+
+# Whether array size `N` can be non-zero if, and only if, the client code is
+# using `SliceStorage::Array` invariant of that type (the type is `SliceStorage` with that
+# non-zero value of generic param `N`). If `size_for_array_only` is disabled,
+# you can use any invariant of `SliceStorage` (and similar types) with `N`>0,
+# but beware that non-array invariants waste space if `N`>0.
+size_for_array_only = []
+
+allow_empty_arrays = []
+disable_empty_arrays = []
+
+# DO NOT enable the following (or any other new "default" here) "only for testing", because it gets forgotten... Use tests/ok_std/ instead.
+## default = ["std"]
+
+[dependencies]
+slicing = { path = "../slicing-rs" }
+
+# TODO reconsider the following. It could save build time.
+#
+# Do not have a test-based workspace. It upsets both
+# - `cargo test --workspace` for tests/ok_std
+#    (even though `cargo test --package ok_std` worked fine), and
+# - Rust Analyzer for the root crate (ranging) itself.
+#[workspace]
+#members = ["tests/*"]
