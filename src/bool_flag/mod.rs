@@ -1,7 +1,7 @@
 use crate::set::Set;
 use core::ops::Sub;
 use core::{fmt, marker::PhantomData};
-use slicing::abstra::NewLike;
+use slicing::abstra::NewEmptyLike;
 use slicing::index::{Indexer, RangeIndexer};
 use slicing::slices::SliceDefault;
 
@@ -26,7 +26,7 @@ impl<
         's,
         T: 's + Eq + Clone + Copy + Default,
         I: Indexer<T>,
-        SL: 's + SliceDefault<'s, bool, N> + Clone + NewLike,
+        SL: 's + SliceDefault<'s, bool, N> + Clone + NewEmptyLike,
         const N: usize,
     > Set<T> for BoolFlagSet<'s, T, I, SL, N>
 where
@@ -84,13 +84,13 @@ impl<
         's,
         T: 's + Eq + Clone + Copy + Default,
         I: Indexer<T>,
-        SL: SliceDefault<'s, bool, N> + NewLike,
+        SL: SliceDefault<'s, bool, N> + NewEmptyLike,
         const N: usize,
-    > NewLike for BoolFlagSet<'s, T, I, SL, N>
+    > NewEmptyLike for BoolFlagSet<'s, T, I, SL, N>
 {
-    fn new_like(&self) -> Self {
+    fn new_empty_like(&self) -> Self {
         Self {
-            slice: self.slice.new_like(),
+            slice: self.slice.new_empty_like(),
             indexer: self.indexer.clone(),
             _items: PhantomData,
             _s_lifetimed: PhantomData,

@@ -1,8 +1,8 @@
-use slicing::abstra::NewLike;
+use slicing::abstra::NewEmptyLike;
 
 /// Abstract set, either general or for a given range.
 /// While some implementations (like `hash::Set`) could be possible without T: Clone, range-based implementations need `T: Clone` so that they can store range a start/base key itself (rather than a reference). But we also need T: Clone for `hash::Set` to be Clone.
-pub trait Set<T: Clone + PartialEq>: Clone + NewLike {
+pub trait Set<T: Clone + PartialEq>: Clone + NewEmptyLike {
     /// To use with non-cloneable, we could have a standard iterator over ref:
     /// type ITER<'a>: Iterator<Item = &'a T>
     /// where
