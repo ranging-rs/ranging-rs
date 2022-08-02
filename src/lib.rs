@@ -15,6 +15,7 @@ use slicing::with_heap;
 pub mod bool_flag;
 pub mod bool_slice;
 pub mod byte_slice;
+pub mod map;
 pub mod set;
 
 #[cfg(all(feature = "no_std", feature = "std"))]

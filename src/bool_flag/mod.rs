@@ -2,11 +2,14 @@ use crate::set::Set;
 use core::ops::Sub;
 use core::{fmt, marker::PhantomData};
 use slicing::abstra::NewEmptyLike;
+use slicing::byte_slice::ByteSliceBoolStorage;
 use slicing::index::{Indexer, RangeIndexer};
 use slicing::slices::SliceDefault;
 
-/// A Set backed by an iterable storage of boolean flags.
-/// See `crate::slices::SliceStorage` for const generic parameter `N`.
+/// A Set backed by an iterable storage of boolean flags. `SL` is the underlying
+/// (slice-like) storage, `slicing::byte_slice::ByteSliceBoolStorage` is the
+/// most suitable - then use `ByteSliceBackedSet`. See
+/// `slicing::slices::SliceStorage` for const generic parameter `N`.
 #[derive(Debug)]
 pub struct BoolFlagSet<
     's,
@@ -169,3 +172,6 @@ where
         }
     }
 }
+
+pub type ByteSliceBackedSet<'s, T, I, const N: usize> =
+    BoolFlagSet<'s, T, I, ByteSliceBoolStorage<'s, N>, N>;
